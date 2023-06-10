@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .container {
+            width: 98vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 70px;
+            height: 20px;
+            margin: 10px;
+            border: 1px solid red;
+            display: inline-block;
+        }
+
+        #buttonPanel {
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<section class="container">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</section>
+<section id="buttonPanel">
+    <button id="start"> Start</button>
+    <button id="stop"> Stop</button>
+</section>
+
+<audio  id="audio" src="./assets/assets/knight.mp3"></audio>
+
+
+<script src="assets/jquery-3.6.4.min.js"></script>
+<script>
+    var lightNumber = 0;
+    var ligts = $('.box');
+    var interwalId = null;
+    console.log(ligts.length);
+    var direction = 'RIGHT';
+    console.log(ligts);
+
+    function updateLights() {
+        $('.box').css({background: 'white'});
+        ligts[lightNumber].style.background = 'red';
+        if (lightNumber > 0) {
+            ligts[lightNumber - 1].style.background = 'pink';
+        }
+        if (lightNumber < 6) {
+            ligts[lightNumber + 1].style.background = 'pink';
+        }
+        if (lightNumber === 6) {
+            direction = 'LEFT'
+        }
+        if (lightNumber === 0) {
+            direction = 'RIGHT'
+        }
+        if (direction === 'RIGHT') {
+            lightNumber++;
+        } else {
+            lightNumber--;
+        }
+    }
+
+   /* setInterval(updateLights, 100);*/
+
+
+    $('#start').on('click', () =>{
+        $('#audio')[0].play();
+       interwalId=setInterval(updateLights,100);
+    });
+
+    $('#stop').on('click' ,() =>{
+        $('#audio')[0].pause();
+        clearInterval(interwalId);
+    });
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
